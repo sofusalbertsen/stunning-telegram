@@ -1,4 +1,3 @@
 service:
   type: NodePort
-jenkinsUser: student
 jenkinsPassword: student

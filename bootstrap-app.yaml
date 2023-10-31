@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: student-0
+  project: default
+  source:
+    repoURL: https://github.com/sofusalbertsen/stunning-telegram
+    targetRevision: HEAD
+    path: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

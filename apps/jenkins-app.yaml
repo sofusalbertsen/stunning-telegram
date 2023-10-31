@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: student0-jenkins
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://charts.bitnami.com/bitnami'
+      targetRevision: 12.4.0
+      helm:
+        valueFiles:
+          - $values/jenkins/values.yaml
+      chart: jenkins
+    - repoURL: 'https://github.com/sofusalbertsen/stunning-telegram'
+      targetRevision: main
+      ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: student-0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
